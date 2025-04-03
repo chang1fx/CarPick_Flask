@@ -23,6 +23,17 @@ FUEL_TYPE_DESCRIPTIONS = {
     "Gasoline": "Gasoline cars are widely available and offer a balance of performance and affordability. They're suitable for all types of driving."
 }
 
+# Define question sets for different questionnaire lengths
+SHORT_QUESTIONS = ["general", "passenger", "cargo", "driving", "trip", "value", "price"]
+MEDIUM_QUESTIONS = SHORT_QUESTIONS + ["efficiency", "scenario", "towing", "maneuverability", "routine"]
+LONG_QUESTIONS = MEDIUM_QUESTIONS + ["usability", "battery", "safety", "reliability", "maintenance", "availability", "answer_charging_station", "height", "at_home_charging"]
+
+QUESTION_SETS = {
+    "short": SHORT_QUESTIONS,
+    "medium": MEDIUM_QUESTIONS,
+    "long": LONG_QUESTIONS,
+}
+
 def CarPick(answers):
     # Initialize points for body types
     sedan_points = hatchback_points = suv_points = truck_points = coupe_points = wagon_points = minivan_points = crossover_points = 0
@@ -31,7 +42,8 @@ def CarPick(answers):
     gasoline_points = diesel_points = electric_points = hybrid_points = plug_in_hybrid_points = 0
 
     # General Purpose
-    general = int(answers["general"])
+    general_str = answers.get("general")
+    general = int(general_str) if general_str else 0
     if general == 1:
         sedan_points += 1
         hatchback_points += 1
@@ -57,7 +69,8 @@ def CarPick(answers):
         diesel_points += 1
 
     # Passenger Space
-    passenger = int(answers["passenger"])
+    passenger_str = answers.get("passenger")
+    passenger = int(passenger_str) if passenger_str else 0
     if passenger == 1:
         coupe_points += 1
         sedan_points += 1
@@ -78,7 +91,8 @@ def CarPick(answers):
         suv_points += 1
 
     # Cargo Space
-    cargo = int(answers["cargo"])
+    cargo_str = answers.get("cargo")
+    cargo = int(cargo_str) if cargo_str else 0
     if cargo == 1:
         coupe_points += 1
         sedan_points += 1
@@ -99,7 +113,8 @@ def CarPick(answers):
         minivan_points += 1
 
     # Comfort Level During Long Travels
-    travel = int(answers["travel"])
+    travel_str = answers.get("travel")
+    travel = int(travel_str) if travel_str else 0
     if travel == 1:
         hatchback_points += 1
         sedan_points += 1
@@ -113,7 +128,8 @@ def CarPick(answers):
         suv_points += 1
 
     # Driving Style
-    driving = int(answers["driving"])
+    driving_str = answers.get("driving")
+    driving = int(driving_str) if driving_str else 0
     if driving == 1:
         electric_points += 1
         hatchback_points += 1
@@ -135,7 +151,8 @@ def CarPick(answers):
         sedan_points += 1
 
     # Trip Duration
-    trip = int(answers["trip"])
+    trip_str = answers.get("trip")
+    trip = int(trip_str) if trip_str else 0
     if trip == 1:
         electric_points += 1
         plug_in_hybrid_points += 1
@@ -148,7 +165,8 @@ def CarPick(answers):
         gasoline_points += 1
 
     # Long-Distance Travel Values
-    value = int(answers["value"])
+    value_str = answers.get("value")
+    value = int(value_str) if value_str else 0
     if value == 1:
         diesel_points += 1
         hybrid_points += 1
@@ -172,7 +190,8 @@ def CarPick(answers):
         minivan_points += 1
 
     # Towing Needs
-    towing = int(answers["towing"])
+    towing_str = answers.get("towing")
+    towing = int(towing_str) if towing_str else 0
     if towing == 1:
         truck_points += 1
         diesel_points += 1
@@ -187,7 +206,8 @@ def CarPick(answers):
         coupe_points += 1
 
     # Fuel Efficiency
-    efficiency = int(answers["efficiency"])
+    efficiency_str = answers.get("efficiency")
+    efficiency = int(efficiency_str) if efficiency_str else 0
     if efficiency == 1:
         electric_points += 1
         hybrid_points += 1
@@ -206,7 +226,8 @@ def CarPick(answers):
         coupe_points += 1
 
     # Scenario Efficiency
-    scenario = int(answers["scenario"])
+    scenario_str = answers.get("scenario")
+    scenario = int(scenario_str) if scenario_str else 0
     if scenario == 1:
         plug_in_hybrid_points += 1
         electric_points += 1
@@ -221,7 +242,8 @@ def CarPick(answers):
         gasoline_points += 1
 
     # Parking and Maneuverability
-    maneuverability = int(answers["maneuverability"])
+    maneuverability_str = answers.get("maneuverability")
+    maneuverability = int(maneuverability_str) if maneuverability_str else 0
     if maneuverability == 1:
         hatchback_points += 1
         sedan_points += 1
@@ -236,7 +258,8 @@ def CarPick(answers):
         suv_points += 1
 
     # Routine Maintenance
-    routine = int(answers["routine"])
+    routine_str = answers.get("routine")
+    routine = int(routine_str) if routine_str else 0
     if routine == 1:
         electric_points += 1
         hybrid_points += 1
@@ -247,7 +270,8 @@ def CarPick(answers):
         diesel_points += 1
 
     # Usability When Stopped
-    usability = int(answers["usability"])
+    usability_str = answers.get("usability")
+    usability = int(usability_str) if usability_str else 0
     if usability == 1:
         plug_in_hybrid_points += 1
         electric_points += 1
@@ -257,7 +281,8 @@ def CarPick(answers):
         diesel_points += 1
 
     # Mobile Battery
-    battery = int(answers["battery"])
+    battery_str = answers.get("battery")
+    battery = int(battery_str) if battery_str else 0
     if battery == 1:
         electric_points += 1
         plug_in_hybrid_points += 1
@@ -267,7 +292,8 @@ def CarPick(answers):
         hybrid_points += 1
 
     # Price
-    price = int(answers["price"])
+    price_str = answers.get("price")
+    price = int(price_str) if price_str else 0
     if price == 1:
         sedan_points += 1
         hatchback_points += 1
@@ -285,7 +311,8 @@ def CarPick(answers):
         minivan_points += 1
 
     # Safety
-    safety = int(answers["safety"])
+    safety_str = answers.get("safety")
+    safety = int(safety_str) if safety_str else 0
     if safety == 1:
         hatchback_points += 1
         sedan_points += 1
@@ -303,7 +330,8 @@ def CarPick(answers):
         electric_points += 1
 
     # Reliability
-    reliability = int(answers["reliability"])
+    reliability_str = answers.get("reliability")
+    reliability = int(reliability_str) if reliability_str else 0
     if reliability == 1:
         sedan_points += 1
         hatchback_points += 1
@@ -322,7 +350,8 @@ def CarPick(answers):
         diesel_points += 1
 
     # Maintenance Costs
-    maintenance = int(answers["maintenance"])
+    maintenance_str = answers.get("maintenance")
+    maintenance = int(maintenance_str) if maintenance_str else 0
     if maintenance == 1:
         sedan_points += 1
         hatchback_points += 1
@@ -341,7 +370,8 @@ def CarPick(answers):
         electric_points += 1
 
     # Availability and Options
-    availability = int(answers["availability"])
+    availability_str = answers.get("availability")
+    availability = int(availability_str) if availability_str else 0
     if availability == 1:
         sedan_points += 1
         hatchback_points += 1
@@ -360,7 +390,8 @@ def CarPick(answers):
         diesel_points += 1
 
     # Charging Station Availability
-    answer_charging_station = int(answers["answer_charging_station"])
+    answer_charging_station_str = answers.get("answer_charging_station")
+    answer_charging_station = int(answer_charging_station_str) if answer_charging_station_str else 0
     if answer_charging_station == 1:
         electric_points += 1
         plug_in_hybrid_points += 1
@@ -372,7 +403,8 @@ def CarPick(answers):
         hybrid_points += 1
 
     # Ride Height
-    height = int(answers["height"])
+    height_str = answers.get("height")
+    height = int(height_str) if height_str else 0
     if height == 1:
         crossover_points += 1
         suv_points += 1
@@ -385,7 +417,8 @@ def CarPick(answers):
         wagon_points += 1
 
     # At-Home Charging
-    at_home_charging = int(answers["at_home_charging"])
+    at_home_charging_str = answers.get("at_home_charging")
+    at_home_charging = int(at_home_charging_str) if at_home_charging_str else 0
     if at_home_charging == 1:
         electric_points += 1
         plug_in_hybrid_points += 1
@@ -442,49 +475,30 @@ def CarPick(answers):
     return top_body_types, body_descriptions, top_fuel_types, fuel_descriptions
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+@app.route("/<length>", methods=["GET", "POST"])
+def index(length="short"):
+    questions_to_ask = QUESTION_SETS.get(length, SHORT_QUESTIONS) # Default to short if invalid
+
     if request.method == "POST":
-        # Get user answers from the form
-        answers = {
-            "general": request.form.get("general"),
-            "passenger": request.form.get("passenger"),
-            "cargo": request.form.get("cargo"),
-            "travel": request.form.get("travel"),
-            "driving": request.form.get("driving"),
-            "trip": request.form.get("trip"),
-            "value": request.form.get("value"),
-            "towing": request.form.get("towing"),
-            "efficiency": request.form.get("efficiency"),
-            "scenario": request.form.get("scenario"),
-            "maneuverability": request.form.get("maneuverability"),
-            "routine": request.form.get("routine"),
-            "usability": request.form.get("usability"),
-            "battery": request.form.get("battery"),
-            "price": request.form.get("price"),
-            "safety": request.form.get("safety"),
-            "reliability": request.form.get("reliability"),
-            "maintenance": request.form.get("maintenance"),
-            "availability": request.form.get("availability"),
-            "answer_charging_station": request.form.get("answer_charging_station"),
-            "height": request.form.get("height"),
-            "at_home_charging": request.form.get("at_home_charging")
-        }
-
-        # Calculate recommendations
+        answers = {q: request.form.get(q) for q in LONG_QUESTIONS} # Collect all potential answers
         top_body_types, body_descriptions, top_fuel_types, fuel_descriptions = CarPick(answers)
-
-        # Render the result page
         return render_template(
             "index.html",
             top_body_types=top_body_types,
-            body_descriptions=body_descriptions,
+            body_descriptions=BODY_TYPE_DESCRIPTIONS, # Use the global dictionary
             top_fuel_types=top_fuel_types,
-            fuel_descriptions=fuel_descriptions,
-            show_result=True
+            fuel_descriptions=FUEL_TYPE_DESCRIPTIONS, # Use the global dictionary
+            show_result=True,
+            question_length=length,
+            questions=questions_to_ask
         )
 
-    # Render the initial form page
-    return render_template("index.html", show_result=False)
+    return render_template(
+        "index.html",
+        show_result=False,
+        question_length=length,
+        questions=questions_to_ask
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

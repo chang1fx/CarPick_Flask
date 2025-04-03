@@ -58,195 +58,180 @@
 </head>
 <body>
     <h1>CarPick</h1>
-    <form method="POST">
-        <!-- General Purpose -->
-        <label for="general">What do you primarily need the car for?</label>
-        <select id="general" name="general" required>
-            <option value="1">Daily commuting</option>
-            <option value="2">Family travel</option>
-            <option value="3">Long trips</option>
-            <option value="4">Towing or heavy lifting</option>
-        </select>
 
-        <!-- Passenger Space -->
-        <label for="passenger">How many passengers do you need to accommodate?</label>
-        <select id="passenger" name="passenger" required>
-            <option value="1">Just myself</option>
-            <option value="2">1–2 passengers</option>
-            <option value="3">3–5 passengers</option>
-            <option value="4">More than 5 passengers</option>
-        </select>
+    {% if not show_result %}
+        <p>Choose the questionnaire length:</p>
+        <p><a href="{{ url_for('index', length='short') }}">Short (7 Questions)</a> | <a href="{{ url_for('index', length='medium') }}">Medium (12 Questions)</a> | <a href="{{ url_for('index', length='long') }}">Long (22 Questions)</a></p>
 
-        <!-- Cargo Space -->
-        <label for="cargo">How important is cargo space to you?</label>
-        <select id="cargo" name="cargo" required>
-            <option value="1">Not important</option>
-            <option value="2">Moderate</option>
-            <option value="3">Large</option>
-            <option value="4">Very large</option>
-        </select>
-
-        <!-- Comfort Level During Long Travels -->
-        <label for="travel">What level of comfort do you expect for long trips?</label>
-        <select id="travel" name="travel" required>
-            <option value="1">Basic</option>
-            <option value="2">Moderate</option>
-            <option value="3">High</option>
-        </select>
-
-        <!-- Driving Style -->
-        <label for="driving">What type of driving do you do most?</label>
-        <select id="driving" name="driving" required>
-            <option value="1">City driving</option>
-            <option value="2">Highway driving</option>
-            <option value="3">Off-roading</option>
-            <option value="4">Sporty driving</option>
-        </select>
-
-        <!-- Trip Duration -->
-        <label for="trip">What type of trips do you usually take?</label>
-        <select id="trip" name="trip" required>
-            <option value="1">Short trips</option>
-            <option value="2">Moderate trips</option>
-            <option value="3">Long trips</option>
-        </select>
-
-        <!-- Long-Distance Travel Values -->
-        <label for="value">What do you value most on long trips?</label>
-        <select id="value" name="value" required>
-            <option value="1">Fuel efficiency</option>
-            <option value="2">Comfort</option>
-            <option value="3">Speed</option>
-            <option value="4">Cargo space</option>
-        </select>
-
-        <!-- Towing Needs -->
-        <label for="towing">Do you need to tow or haul heavy loads?</label>
-        <select id="towing" name="towing" required>
-            <option value="1">Frequently</option>
-            <option value="2">Occasionally</option>
-            <option value="3">Not at all</option>
-        </select>
-
-        <!-- Fuel Efficiency -->
-        <label for="efficiency">How important is overall fuel efficiency to you?</label>
-        <select id="efficiency" name="efficiency" required>
-            <option value="1">Very important</option>
-            <option value="2">Moderately important</option>
-            <option value="3">Not important</option>
-        </select>
-
-        <!-- Scenario Efficiency -->
-        <label for="scenario">What kind of fuel efficiency is most important to you?</label>
-        <select id="scenario" name="scenario" required>
-            <option value="1">Efficient for short trips</option>
-            <option value="2">Efficient for moderate trips</option>
-            <option value="3">Efficient for long trips</option>
-            <option value="4">Not important</option>
-        </select>
-
-        <!-- Parking and Maneuverability -->
-        <label for="maneuverability">How important is it for the car to be easy to park and maneuver?</label>
-        <select id="maneuverability" name="maneuverability" required>
-            <option value="1">Very important</option>
-            <option value="2">Moderately important</option>
-            <option value="3">Not important</option>
-        </select>
-
-        <!-- Routine Maintenance -->
-        <label for="routine">Do you mind performing routine maintenance tasks (e.g., oil changes)?</label>
-        <select id="routine" name="routine" required>
-            <option value="1">No, I prefer minimal maintenance</option>
-            <option value="2">I don’t mind occasional maintenance</option>
-            <option value="3">I’m fine with regular maintenance</option>
-        </select>
-
-        <!-- Usability When Stopped -->
-        <label for="usability">Would you like the car to function comfortably when stopped (e.g., AC or electronics without the gas engine running)?</label>
-        <select id="usability" name="usability" required>
-            <option value="1">Yes, I value this feature</option>
-            <option value="2">No, I don’t need this functionality</option>
-        </select>
-
-        <!-- Mobile Battery -->
-        <label for="battery">Would you like the car to act as a mobile power source to run electronics or appliances where you go?</label>
-        <select id="battery" name="battery" required>
-            <option value="1">Yes, that’s an important feature</option>
-            <option value="2">No, I don’t need that feature</option>
-        </select>
-
-        <!-- Price -->
-        <label for="price">What is your budget for purchasing a car?</label>
-        <select id="price" name="price" required>
-            <option value="1">Low budget</option>
-            <option value="2">Mid-range budget</option>
-            <option value="3">High budget</option>
-        </select>
-
-        <!-- Safety -->
-        <label for="safety">How important is safety to you?</label>
-        <select id="safety" name="safety" required>
-            <option value="1">Standard safety features are fine</option>
-            <option value="2">Advanced safety features are important</option>
-            <option value="3">Safety is my top priority</option>
-        </select>
-
-        <!-- Reliability -->
-        <label for="reliability">How important is overall reliability to you?</label>
-        <select id="reliability" name="reliability" required>
-            <option value="1">Very important; I want a car that almost never breaks down</option>
-            <option value="2">Moderate; I expect a reliable car but don’t mind occasional repairs</option>
-            <option value="3">Not too important; I value other features more than reliability</option>
-        </select>
-
-        <!-- Maintenance Costs -->
-        <label for="maintenance">How much can you afford to spend on maintenance if problems do occur?</label>
-        <select id="maintenance" name="maintenance" required>
-            <option value="1">Low; I want a car with minimal maintenance costs</option>
-            <option value="2">Moderate; I can handle some repair costs</option>
-            <option value="3">High; I’m okay with higher maintenance costs if the car offers unique features</option>
-        </select>
-
-        <!-- Availability and Options -->
-        <label for="availability">How important is high availability and varied options in the market?</label>
-        <select id="availability" name="availability" required>
-            <option value="1">Very important; I want something easy to find and service</option>
-            <option value="2">Moderately important; I don’t mind slightly rarer options</option>
-            <option value="3">Not important; I’m okay with niche or unique cars</option>
-        </select>
-
-        <!-- Charging Station Availability -->
-        <label for="answer_charging_station">How common are charging stations in your area?</label>
-        <select id="answer_charging_station" name="answer_charging_station" required>
-            <option value="1">Very common; I see them everywhere</option>
-            <option value="2">Somewhat common; I’ve seen a few</option>
-            <option value="3">Rare or nonexistent</option>
-        </select>
-
-        <!-- Ride Height -->
-        <label for="height">Do you prefer a car with a higher driving position?</label>
-        <select id="height" name="height" required>
-            <option value="1">Yes, I prefer sitting higher</option>
-            <option value="2">No, I prefer a lower, car-like position</option>
-        </select>
-
-        <!-- At-Home Charging -->
-        <label for="at_home_charging">Do you have access to charging at home?</label>
-        <select id="at_home_charging" name="at_home_charging" required>
-            <option value="1">Yes, I can install or already have a charging setup</option>
-            <option value="2">No, I cannot charge at home</option>
-        </select>
-
-        <!-- Submit Button -->
-        <button type="submit">Get Recommendation</button>
-    </form>
+        <form method="POST">
+            {% for question in questions %}
+                {% if question == "general" %}
+                    <label for="general">What do you primarily need the car for?</label>
+                    <select id="general" name="general" required>
+                        <option value="1">Daily commuting</option>
+                        <option value="2">Family travel</option>
+                        <option value="3">Long trips</option>
+                        <option value="4">Towing or heavy lifting</option>
+                    </select>
+                {% elif question == "passenger" %}
+                    <label for="passenger">How many passengers do you need to accommodate?</label>
+                    <select id="passenger" name="passenger" required>
+                        <option value="1">Just myself</option>
+                        <option value="2">1–2 passengers</option>
+                        <option value="3">3–5 passengers</option>
+                        <option value="4">More than 5 passengers</option>
+                    </select>
+                {% elif question == "cargo" %}
+                    <label for="cargo">How important is cargo space to you?</label>
+                    <select id="cargo" name="cargo" required>
+                        <option value="1">Not important</option>
+                        <option value="2">Moderate</option>
+                        <option value="3">Large</option>
+                        <option value="4">Very large</option>
+                    </select>
+                {% elif question == "travel" %}
+                    <label for="travel">What level of comfort do you expect for long trips?</label>
+                    <select id="travel" name="travel" required>
+                        <option value="1">Basic</option>
+                        <option value="2">Moderate</option>
+                        <option value="3">High</option>
+                    </select>
+                {% elif question == "driving" %}
+                    <label for="driving">What type of driving do you do most?</label>
+                    <select id="driving" name="driving" required>
+                        <option value="1">City driving</option>
+                        <option value="2">Highway driving</option>
+                        <option value="3">Off-roading</option>
+                        <option value="4">Sporty driving</option>
+                    </select>
+                {% elif question == "trip" %}
+                    <label for="trip">What type of trips do you usually take?</label>
+                    <select id="trip" name="trip" required>
+                        <option value="1">Short trips</option>
+                        <option value="2">Moderate trips</option>
+                        <option value="3">Long trips</option>
+                    </select>
+                {% elif question == "value" %}
+                    <label for="value">What do you value most on long trips?</label>
+                    <select id="value" name="value" required>
+                        <option value="1">Fuel efficiency</option>
+                        <option value="2">Comfort</option>
+                        <option value="3">Speed</option>
+                        <option value="4">Cargo space</option>
+                    </select>
+                {% elif question == "towing" %}
+                    <label for="towing">Do you need to tow or haul heavy loads?</label>
+                    <select id="towing" name="towing" required>
+                        <option value="1">Frequently</option>
+                        <option value="2">Occasionally</option>
+                        <option value="3">Not at all</option>
+                    </select>
+                {% elif question == "efficiency" %}
+                    <label for="efficiency">How important is overall fuel efficiency to you?</label>
+                    <select id="efficiency" name="efficiency" required>
+                        <option value="1">Very important</option>
+                        <option value="2">Moderately important</option>
+                        <option value="3">Not important</option>
+                    </select>
+                {% elif question == "scenario" %}
+                    <label for="scenario">What kind of fuel efficiency is most important to you?</label>
+                    <select id="scenario" name="scenario" required>
+                        <option value="1">Efficient for short trips</option>
+                        <option value="2">Efficient for moderate trips</option>
+                        <option value="3">Efficient for long trips</option>
+                        <option value="4">Not important</option>
+                    </select>
+                {% elif question == "maneuverability" %}
+                    <label for="maneuverability">How important is it for the car to be easy to park and maneuver?</label>
+                    <select id="maneuverability" name="maneuverability" required>
+                        <option value="1">Very important</option>
+                        <option value="2">Moderately important</option>
+                        <option value="3">Not important</option>
+                    </select>
+                {% elif question == "routine" %}
+                    <label for="routine">Do you mind performing routine maintenance tasks (e.g., oil changes)?</label>
+                    <select id="routine" name="routine" required>
+                        <option value="1">No, I prefer minimal maintenance</option>
+                        <option value="2">I don’t mind occasional maintenance</option>
+                        <option value="3">I’m fine with regular maintenance</option>
+                    </select>
+                {% elif question == "usability" %}
+                    <label for="usability">Would you like the car to function comfortably when stopped (e.g., AC or electronics without the gas engine running)?</label>
+                    <select id="usability" name="usability" required>
+                        <option value="1">Yes, I value this feature</option>
+                        <option value="2">No, I don’t need this functionality</option>
+                    </select>
+                {% elif question == "battery" %}
+                    <label for="battery">Would you like the car to act as a mobile power source to run electronics or appliances where you go?</label>
+                    <select id="battery" name="battery" required>
+                        <option value="1">Yes, that’s an important feature</option>
+                        <option value="2">No, I don’t need that feature</option>
+                    </select>
+                {% elif question == "price" %}
+                    <label for="price">What is your budget for purchasing a car?</label>
+                    <select id="price" name="price" required>
+                        <option value="1">Low budget</option>
+                        <option value="2">Mid-range budget</option>
+                        <option value="3">High budget</option>
+                    </select>
+                {% elif question == "safety" %}
+                    <label for="safety">How important is safety to you?</label>
+                    <select id="safety" name="safety" required>
+                        <option value="1">Standard safety features are fine</option>
+                        <option value="2">Advanced safety features are important</option>
+                        <option value="3">Safety is my top priority</option>
+                    </select>
+                {% elif question == "reliability" %}
+                    <label for="reliability">How important is overall reliability to you?</label>
+                    <select id="reliability" name="reliability" required>
+                        <option value="1">Very important; I want a car that almost never breaks down</option>
+                        <option value="2">Moderate; I expect a reliable car but don’t mind occasional repairs</option>
+                        <option value="3">Not too important; I value other features more than reliability</option>
+                    </select>
+                {% elif question == "maintenance" %}
+                    <label for="maintenance">How much can you afford to spend on maintenance if problems do occur?</label>
+                    <select id="maintenance" name="maintenance" required>
+                        <option value="1">Low; I want a car with minimal maintenance costs</option>
+                        <option value="2">Moderate; I can handle some repair costs</option>
+                        <option value="3">High; I’m okay with higher maintenance costs if the car offers unique features</option>
+                    </select>
+                {% elif question == "availability" %}
+                    <label for="availability">How important is high availability and varied options in the market?</label>
+                    <select id="availability" name="availability" required>
+                        <option value="1">Very important; I want something easy to find and service</option>
+                        <option value="2">Moderately important; I don’t mind slightly rarer options</option>
+                        <option value="3">Not important; I’m okay with niche or unique cars</option>
+                    </select>
+                {% elif question == "answer_charging_station" %}
+                    <label for="answer_charging_station">How common are charging stations in your area?</label>
+                    <select id="answer_charging_station" name="answer_charging_station" required>
+                        <option value="1">Very common; I see them everywhere</option>
+                        <option value="2">Somewhat common; I’ve seen a few</option>
+                        <option value="3">Rare or nonexistent</option>
+                    </select>
+                {% elif question == "height" %}
+                    <label for="height">Do you prefer a car with a higher driving position?</label>
+                    <select id="height" name="height" required>
+                        <option value="1">Yes, I prefer sitting higher</option>
+                        <option value="2">No, I prefer a lower, car-like position</option>
+                    </select>
+                {% elif question == "at_home_charging" %}
+                    <label for="at_home_charging">Do you have access to charging at home?</label>
+                    <select id="at_home_charging" name="at_home_charging" required>
+                        <option value="1">Yes, I can install or already have a charging setup</option>
+                        <option value="2">No, I cannot charge at home</option>
+                    </select>
+                {% endif %}
+            {% endfor %}
+            <button type="submit">Get Recommendation</button>
+        </form>
+    {% endif %}
 
     {% if show_result %}
     <div class="result">
         <h2>Recommendation</h2>
         <p>Based on your answers, we recommend a <strong>{{ top_body_types[0] }} or {{ top_body_types[1] }}</strong> body type and <strong>{{ top_fuel_types[0] }} or {{ top_fuel_types[1] }}</strong> fuel type!</p>
 
-        <!-- Separation Line -->
         <hr>
 
         <div class="summary">
@@ -255,6 +240,7 @@
             <p><strong>{{ top_fuel_types[0] }}:</strong> {{ fuel_descriptions[top_fuel_types[0]] }}</p>
             <p><strong>{{ top_fuel_types[1] }}:</strong> {{ fuel_descriptions[top_fuel_types[1]] }}</p>
         </div>
+        <p><a href="{{ url_for('index') }}">Take the quiz again</a></p>
     </div>
     {% endif %}
 </body>
