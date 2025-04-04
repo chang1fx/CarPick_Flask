@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+import openai
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -499,6 +501,20 @@ def index(length="short"):
         question_length=length,
         questions=questions_to_ask
     )
+@app.route("/chat", methods=["POST"])
+def chat():
+    user_message = request.json.get("message")
 
+    try:
+        openai.api_key = ""  
+
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": user_message}]
+        )
+        reply = response["choices"][0]["message"]["content"]
+        return jsonify({"reply": reply})
+    except Exception as e:
+        return jsonify({"reply": f"Error: {str(e)}"})
 if __name__ == "__main__":
     app.run(debug=True)

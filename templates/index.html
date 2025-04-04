@@ -56,6 +56,37 @@
         }
     </style>
 </head>
+<div style="position: fixed; bottom: 20px; right: 20px; width: 300px;">
+    <div style="border: 1px solid #ccc; background: white; padding: 10px;">
+        <h3>Get suggest from AI</h3>
+        <div id="chat-box" style="height: 200px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #eee; padding: 5px;"></div>
+        <input type="text" id="user-input" placeholder="Type a question..." style="width: 100%; padding: 5px;">
+        <button onclick="sendMessage()" style="margin-top: 5px;">Send</button>
+    </div>
+</div>
+
+<script>
+function sendMessage() {
+    const input = document.getElementById("user-input");
+    const chatBox = document.getElementById("chat-box");
+    const userMessage = input.value;
+    if (!userMessage.trim()) return;
+
+    chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+    input.value = "";
+
+    fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage })
+    })
+    .then(res => res.json())
+    .then(data => {
+        chatBox.innerHTML += `<p><strong>AI:</strong> ${data.reply}</p>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+}
+</script>
 <body>
     <h1>CarPick</h1>
 
